@@ -47,3 +47,15 @@ FROM Missions AS m
 JOIN Mission_Crew AS mc ON m.mission_ID = mc.mission_ID
 JOIN Astronauts AS a ON mc.astronaut_ID = a.astronaut_ID
 WHERE m.mission_name = 'Apollo 11';
+```
+
+### Astronaut Age at Launch and Role
+```sql
+SELECT
+    a.astronaut_name,
+    mission_name,
+    DATEDIFF(m.launch_date, a.date_of_birth) / 365 AS Age_at_launch,
+    mc.role
+FROM Astronauts AS a
+LEFT JOIN Mission_Crew AS mc ON a.astronaut_ID = mc.astronaut_ID
+LEFT JOIN Missions AS m ON mc.mission_ID = m.mission_ID;
